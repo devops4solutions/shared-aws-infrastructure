@@ -5,10 +5,6 @@ data "aws_subnets" "selected" {
     values = [var.vpc_id] # Replace with your VPC ID
   }
 }
-provider "aws" {
-  region = "us-east-1" # Replace with your AWS region
-}
-
 
 # Fetch subnet details to group by AZ
 data "aws_subnet" "subnet_details" {
