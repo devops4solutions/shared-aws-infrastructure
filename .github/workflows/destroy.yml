@@ -1,8 +1,6 @@
 name: "Terraform destroy"
 on:
   workflow_dispatch:
-concurrency:
-  group: infra-deploy
 jobs:
   terraform:
     name:  Terraform Deployment-${{ matrix.environment }}
@@ -36,7 +34,7 @@ jobs:
       id: plan
       run: |
         terraform plan -var-file=${{ matrix.environment }}/terraform.tfvars -no-color
-    - name: Terraform destroy
+    - name: Terraform destroyß
       if: github.ref == 'refs/heads/master'
       id: apply
       run: |
