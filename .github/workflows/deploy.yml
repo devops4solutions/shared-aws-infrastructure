@@ -10,7 +10,7 @@ concurrency:
   group: infra-deploy
 jobs:
   terraform:
-    name:  ${{ matrix.account }}
+    name:  Terraform Deployment-${{ matrix.environment }}
     runs-on: [ ubuntu-latest ]
     strategy:
       max-parallel: 1
