@@ -2,7 +2,7 @@ resource "aws_lb" "public_alb" {
   name                       = "${var.environment}-alb"
   internal                   = false
   load_balancer_type         = "application"
-  subnets                    = local.unique_subnet_ids
+  subnets                    = data.aws_subnets.selected.ids
   enable_deletion_protection = false
   security_groups            = [aws_security_group.alb.id, aws_security_group.alb-internal.id]
 }
