@@ -1,0 +1,43 @@
+name: "Terraform destroy"
+on:
+  workflow_dispatch:
+concurrency:
+  group: infra-deploy
+jobs:
+  terraform:
+    name:  Terraform Deployment-${{ matrix.environment }}
+    runs-on: [ ubuntu-latest ]
+    strategy:
+      max-parallel: 1
+      matrix:
+        include:
+            - environment: dev
+    env:
+      aws_secret_access_key: ${{ secrets.INFRA_AWS_ACCESS_KEY_ID }}
+      aws_access_key: ${{ secrets.INFRA_AWS_SECRET_ACCESS_KEY }}
+      region: us-east-1
+    steps:
+    - uses: actions/checkout@v2
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.INFRA_AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.INFRA_AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+    - uses: hashicorp/setup-terraform@v1
+      with:
+          terraform_wrapper: false
+    - name: Terraform Init
+      id: init
+      run: |
+        rm -rf .terraform
+        terraform init -backend-config=${{ matrix.environment }}/backend.tfvars -upgrade=true -no-color -input=false
+    - name: Terraform Plan
+      id: plan
+      run: |
+        terraform plan -var-file=${{ matrix.environment }}/terraform.tfvars -no-color
+    - name: Terraform destroy
+      if: github.ref == 'refs/heads/master'
+      id: apply
+      run: |
+        terraform destroy -var-file=${{ matrix.environment }}/terraform.tfvars -no-color --auto-approve=true
