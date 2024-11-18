@@ -17,8 +17,6 @@ jobs:
       matrix:
         include:
             - environment: dev
-    env:
-      region: us-east-1
     steps:
     - uses: actions/checkout@v2
     - name: Configure AWS credentials
