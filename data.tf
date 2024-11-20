@@ -4,7 +4,7 @@ data "aws_subnets" "selected" {
     name   = "vpc-id"
     values = [var.vpc_id] # Replace with your VPC ID
   }
- tags = {
+  tags = {
     Name = "Public*"
   }
 }

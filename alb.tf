@@ -80,9 +80,9 @@ data "aws_vpc" "vpcid" {
 
 resource "aws_lb_listener" "lb_listener_redirect" {
   load_balancer_arn = aws_lb.public_alb.arn
-  port     = "80"
-  protocol = "HTTP"
-   default_action {
+  port              = "80"
+  protocol          = "HTTP"
+  default_action {
     type = "fixed-response"
     fixed_response {
       content_type = "text/plain"

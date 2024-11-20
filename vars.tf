@@ -7,9 +7,9 @@ variable "vpc_id" {
 }
 
 variable "allow_ip" {}
-variable "environment"{
-    default ="dev"
+variable "environment" {
+  default = "dev"
 }
-variable "cloudmap_name"{
-    default = "corp"
+variable "cloudmap_name" {
+  default = "corp"
 }
