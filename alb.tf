@@ -8,6 +8,7 @@ resource "aws_lb" "public_alb" {
 }
 
 
+
 resource "aws_security_group" "alb" {
   name   = "external-sg-alb"
   vpc_id = var.vpc_id
