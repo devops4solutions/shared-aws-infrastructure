@@ -7,6 +7,7 @@ resource "aws_lb" "public_alb" {
   security_groups            = [aws_security_group.alb.id, aws_security_group.alb-internal.id]
 }
 
+
 resource "aws_security_group" "alb" {
   name   = "external-sg-alb"
   vpc_id = var.vpc_id
