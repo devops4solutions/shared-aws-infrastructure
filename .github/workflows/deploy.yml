@@ -38,7 +38,7 @@ jobs:
       run: |
         terraform plan -var-file=${{ matrix.environment }}/terraform.tfvars -no-color
     - name: Terraform apply
-      if: github.ref == 'refs/heads/master'
+      if: github.ref == 'refs/heads/test12'
       id: apply
       run: |
         terraform apply -var-file=${{ matrix.environment }}/terraform.tfvars -no-color --auto-approve=true
